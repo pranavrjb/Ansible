@@ -1,0 +1,38 @@
+---
+- name: Setup Webserver
+  hosts: vm1
+  become: true
+  tasks:
+   - name: Install apache2 package
+     apt:
+      update_cache: yes
+      name: apache2
+      state: present
+   - name: Start apache2 service
+     service:
+       name: apache2
+       state: started
+       enabled: yes
+   - name: Update index.html file
+     copy: 
+       src: index.html
+       dest: /var/www/html/
+
+- name: Setup DB server
+  hosts: vm2
+  become: true
+  tasks:
+   - name: Install MySQL server
+     apt:
+      name: mysql-server
+      state: present
+      update_cache: yes
+   - name: Start MySQL service
+     service:
+       name: mysql
+       state: started
+       enabled: yes
+
+
+
+ 

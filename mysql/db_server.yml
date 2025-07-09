@@ -1,0 +1,6 @@
+---
+- name: Setting up Database server
+- hosts: mysql
+  vars:
+    mysql_pass: password@123
+  

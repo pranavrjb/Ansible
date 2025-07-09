@@ -1,0 +1,1 @@
+mysql ansible_host=192.168.33.12 ansible_name=vagrant ansible_password=vagrant
