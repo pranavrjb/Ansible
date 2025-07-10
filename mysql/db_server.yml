@@ -1,6 +1,36 @@
 ---
 - name: Setting up Database server
-- hosts: mysql
-  vars:
-    mysql_pass: password@123
+  hosts: vm1
+  become: true
+  tasks:
+   - name: Install MySQL srever
+     apt: 
+      name: mysql-server
+      state: present
+      update_cache: yes
+
+   - name: Start MySQL server
+     service:
+       name: mysql
+       state: started
+       enabled: yes
+
+   - name: Install PyMySQL 
+     apt:
+      name: python3-pymysql
+      state: present
+
+   - name: Create a new database 'Demo'
+     mysql_db:
+       name: Demo
+       state: present
+       login_unix_socket: /run/mysqld/mysqld.sock
+
+   - name: Create a database user with name 'Yash' and pw 
+     mysql_user:
+       name: Yash
+       password: Yash@123
+       priv: '*.*:ALL'
+       state: present 
+       login_unix_socket: /run/mysqld/mysqld.sock
   
