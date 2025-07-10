@@ -1,0 +1,53 @@
+---
+- name: Setup Wordpress in host machine
+  hosts: wordpressvm1
+  become: yes
+  tasks:
+   - name: Update machine
+     apt:
+      update_cache: yes
+
+   - name: Install packges for wordpress
+     apt:
+      name: 
+       - apache2
+       - ghostscript
+       - mysql-server
+       - libapache2-mod-php
+       - php-curl
+       - php
+       - php-bcmath
+       - php-json
+       - php intl
+       - php-mysql
+       - php-mbstring
+       - php-xml
+       - php-imagsick
+       - php-zip
+      state: present
+
+   - name: Install Wordpress
+     get_url:
+      url: https://wordpress.org/latest.tar.gz
+      dest: /opt/wordpress.tar.gz
+  
+   - name: Extract wordpress
+     unarchive:
+      src: /opt/wordpress.tar.gz
+      dest: /srv/www/html
+   
+   - name: setup file permission
+     file:
+      path: /srv/www/html/wordpress
+      owner: www-data
+   
+   - name: Copy configure wordpress to connect database
+     copy:
+      src: /srv/www/wordpress/wp-config-sample.php
+      dest: /srv/www/wordpress/wp-config.php
+
+
+
+
+            
+
