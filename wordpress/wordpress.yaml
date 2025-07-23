@@ -1,6 +1,6 @@
 ---
 - name: Setup Wordpress in host machine
-  hosts: wordpressvm1
+  hosts: wordpressVm1
   become: yes
   tasks:
    - name: Update machine
@@ -18,18 +18,18 @@
        - php
        - php-bcmath
        - php-json
-       - php intl
+       - php-intl
        - php-mysql
        - php-mbstring
        - php-xml
-       - php-imagsick
+       - php-imagick
        - php-zip
       state: present
 
    - name: Install Wordpress
      get_url:
       url: https://wordpress.org/latest.tar.gz
-      dest: /opt/wordpress.tar.gz
+      dest: /opt/wordpress.org/latest.tar.gz
   
    - name: Extract wordpress
      unarchive:

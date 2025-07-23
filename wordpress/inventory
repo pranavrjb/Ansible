@@ -1,1 +1,1 @@
-wordpressVm1 anisble_host=192.168.33.11 ansible_user=vagrant ansible_password=vagrant
+wordpressVm1 ansible_host=192.168.56.3 ansible_user=vagrant ansible_password=vagrant

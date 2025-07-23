@@ -1,0 +1,30 @@
+---
+- name: Deploy Django Notes App using Docker Compose
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Create app directory if not exists
+      file:
+        path: /opt/notes-app
+        state: directory
+
+    - name: Copy docker-compose.yml to server
+      copy:
+        src: files/docker-compose.yml
+        dest: /opt/notes-app/docker-compose.yml
+
+    - name: Pull latest image from Docker Hub
+      shell: docker pull pranavrjb12/notes-app:v1
+
+    - name: Stop existing containers (if running)
+      shell: docker compose down
+      args:
+        chdir: /opt/notes-app
+      ignore_errors: true 
+
+    - name: Start containers using Docker Compose
+      shell: docker compose up -d
+      args:
+        chdir: /opt/notes-app
+
